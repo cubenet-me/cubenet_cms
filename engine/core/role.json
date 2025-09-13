@@ -1,0 +1,18 @@
+{
+  "roles": {
+    "player": {"description": "Обычный игрок", "permissions": 1},
+    "vip": {"description": "VIP игрок", "permissions": 2},
+    "plus": {"description": "Игрок с уровнем PLUS", "permissions": 3},
+    "premium": {"description": "Игрок с уровнем PREMIUM", "permissions": 4},
+    "epic": {"description": "Игрок с уровнем EPIC", "permissions": 5},
+    "deluxe": {"description": "Игрок с уровнем DELUXE", "permissions": 6},
+    "legend": {"description": "Игрок с уровнем LEGEND", "permissions": 7},
+    "media": {"description": "Медиа-партнёр или контент-креатор", "permissions": 8},
+    "helper": {"description": "Помощник проекта", "permissions": 9},
+    "moderator": {"description": "Модератор", "permissions": 10},
+    "smoderator": {"description": "Старший модератор", "permissions": 11},
+    "game_designer": {"description": "Разработчик игрового контента", "permissions": 12},
+    "admin": {"description": "Администратор", "permissions": 13},
+    "owner": {"description": "Руководство проекта", "permissions": 255}
+  }
+}
