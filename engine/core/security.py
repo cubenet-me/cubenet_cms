@@ -4,6 +4,7 @@ from fastapi import Depends, Header, HTTPException
 from dotenv import load_dotenv
 import jwt
 from datetime import datetime, timedelta
+import bcrypt
 
 load_dotenv()
 
@@ -21,6 +22,17 @@ SECRET_JWT_KEY = os.getenv("SECRET_JWT_KEY", "supersecret")        # ключ д
 JWT_ALGORITHM = os.getenv("JWT_ALGORITHM", "HS256")                # алгоритм подписи
 JWT_EXPIRE_MINUTES = int(os.getenv("JWT_EXPIRE_MINUTES", 60))      # срок жизни токена в минутах
 JWT_REFRESH_EXPIRE_MINUTES = int(os.getenv("JWT_REFRESH_EXPIRE_MINUTES", 120))  # срок жизни при "remember me"
+
+# -----------------------------
+# Пароли
+# -----------------------------
+def get_password_hash(password: str) -> str:
+    """Хэширование пароля"""
+    return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode()
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    """Проверка пароля на соответствие хэшу"""
+    return bcrypt.checkpw(plain_password.encode("utf-8"), hashed_password.encode())
 
 # -----------------------------
 # JWT utility
