@@ -1,15 +1,12 @@
-from fastapi import APIRouter, FastAPI
+# engine/api/public/example/endpoints.py
+from fastapi import APIRouter
 
-app = FastAPI()
-router = APIRouter(prefix="/example", tags=["example"])  # Категория example
+router = APIRouter(prefix="/example", tags=["example"])  # tags будет автоматически "example"
 
-# Пустой эндпоинт в категории example
 @router.get("/endpoint")
 def example_endpoint():
-    """
-    Пустой эндпоинт в категории 'example'.
-    """
+    # Теперь можно использовать logic, если он есть
+    if "logic" in globals():
+        result = logic.some_function()  # берём функцию из logic.py
+        return {"message": "Результат из логики", "result": result}
     return {"message": "Этот эндпоинт пока пустой"}
-
-# Подключаем роутер к приложению
-app.include_router(router)

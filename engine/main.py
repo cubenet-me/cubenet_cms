@@ -1,4 +1,3 @@
-# engine/main.py
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from engine.core.logger import logger
@@ -12,7 +11,7 @@ app = FastAPI(title="CubeNet CMS")
 setup_middlewares(app)
 setup_events(app)
 
-# Подключаем публичные модули (они теперь включают проверку ролей)
+# Подключаем публичные модули
 public_routers = load_public_modules()
 for router in public_routers:
     app.include_router(router, prefix="/api")
