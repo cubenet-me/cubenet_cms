@@ -3,9 +3,9 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color-scheme: dark;
+  color: #fff;
+  background-color: #1a001a; /* тёмно-фиолетовый фон */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -16,7 +16,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background-color: #242424;
+  background-color: #1a001a; /* совпадает с :root */
 }
 
 /* --- Контейнер приложения на весь экран --- */
@@ -29,7 +29,7 @@ body {
 /* --- Хедер --- */
 header {
   width: 100%;
-  background-color: #222;
+  background: linear-gradient(90deg, #3d0055, #8a00ff); /* градиент фиолетовый */
   color: #fff;
 }
 
@@ -45,31 +45,33 @@ nav button {
   padding: 8px 16px;
   border: none;
   border-radius: 5px;
-  background-color: #555;
+  background-color: #5a005a;
   color: #fff;
   cursor: pointer;
   font-size: 14px;
-  transition: background 0.2s;
+  transition: all 0.3s ease;
 }
 
 nav button:hover {
-  background-color: #777;
+  background-color: #8a00ff;
+  transform: scale(1.05);
 }
 
 /* --- Основной контент --- */
 main {
   flex: 1;
   display: flex;
-  justify-content: center; /* горизонтальная центровка */
-  align-items: center;     /* вертикальная центровка */
+  justify-content: center;
+  align-items: center;
   text-align: center;
   color: #fff;
+  background-color: #1a001a;
 }
 
 /* --- Футер --- */
 footer {
   width: 100%;
-  background-color: #222;
+  background: linear-gradient(90deg, #3d0055, #8a00ff);
   color: #fff;
   padding: 20px 0;
   text-align: center;
@@ -80,6 +82,7 @@ footer {
 h1 {
   font-size: 3em;
   margin: 0 0 20px 0;
+  text-shadow: 1px 1px 4px #000;
 }
 
 p {
@@ -87,28 +90,25 @@ p {
   margin: 0;
 }
 
-/* --- Поддержка светлой темы --- */
+/* --- Кнопки светлой темы (если вдруг) --- */
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: #fff;
+    background-color: #1a001a;
   }
   nav button {
-    background-color: #f9f9f9;
-    color: #000;
+    background-color: #5a005a;
+    color: #fff;
   }
   nav button:hover {
-    background-color: #ddd;
+    background-color: #8a00ff;
   }
   main {
-    color: #213547;
+    color: #fff;
+    background-color: #1a001a;
   }
-  footer {
-    background-color: #eee;
-    color: #213547;
-  }
-  header {
-    background-color: #eee;
-    color: #213547;
+  footer, header {
+    background: linear-gradient(90deg, #3d0055, #8a00ff);
+    color: #fff;
   }
 }
