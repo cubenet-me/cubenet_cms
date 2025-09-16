@@ -1,0 +1,114 @@
+/* --- Сброс и базовые стили --- */
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #242424;
+}
+
+/* --- Контейнер приложения на весь экран --- */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* --- Хедер --- */
+header {
+  width: 100%;
+  background-color: #222;
+  color: #fff;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 10px 0;
+}
+
+nav button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #555;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+nav button:hover {
+  background-color: #777;
+}
+
+/* --- Основной контент --- */
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center; /* горизонтальная центровка */
+  align-items: center;     /* вертикальная центровка */
+  text-align: center;
+  color: #fff;
+}
+
+/* --- Футер --- */
+footer {
+  width: 100%;
+  background-color: #222;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* --- Заголовки и параграфы --- */
+h1 {
+  font-size: 3em;
+  margin: 0 0 20px 0;
+}
+
+p {
+  font-size: 1.2em;
+  margin: 0;
+}
+
+/* --- Поддержка светлой темы --- */
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  nav button {
+    background-color: #f9f9f9;
+    color: #000;
+  }
+  nav button:hover {
+    background-color: #ddd;
+  }
+  main {
+    color: #213547;
+  }
+  footer {
+    background-color: #eee;
+    color: #213547;
+  }
+  header {
+    background-color: #eee;
+    color: #213547;
+  }
+}
