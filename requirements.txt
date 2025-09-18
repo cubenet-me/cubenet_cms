@@ -1,8 +1,7 @@
 fastapi
-uvicorn[standard]
+uvicorn
 pydantic
+pydantic-settings
+pyjwt
+bcrypt
 python-dotenv
-passlib[bcrypt]
-PyJWT
-sqlalchemy
-asyncpg
