@@ -1,15 +1,13 @@
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
-from engine.core.logger import logger
-from engine.core.middleware import setup_middlewares
-from engine.core.events import setup_events
+from engine.core.logger.logger import logger
+from engine.core.loader import load_core_modules
 from engine.api.loader import load_public_modules
 
 app = FastAPI(title="CubeNet CMS")
 
-# Middleware и события
-setup_middlewares(app)
-setup_events(app)
+# Загружаем модули core
+load_core_modules(app)
 
 # Подключаем публичные модули
 public_routers = load_public_modules()

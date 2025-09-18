@@ -1,23 +1,22 @@
-# engine/core/middleware.py
-from fastapi import Request
+# engine/core/events/middleware.py
+from fastapi import Request, FastAPI
 from starlette.middleware.base import BaseHTTPMiddleware
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from engine.core.logger import logger
+from engine.core.logger.logger import logger
 import time
 
 class RateLimitMiddleware(BaseHTTPMiddleware):
-    def __init__(self, app, max_requests: int = 10, period: int = 1):
+    def __init__(self, app, max_requests: int = 20, period: int = 1):
         super().__init__(app)
         self.max_requests = max_requests
-        self.period = period  # время в секундах
-        self.clients = {}     # хранение времени запросов по IP
+        self.period = period
+        self.clients = {}
 
     async def dispatch(self, request: Request, call_next):
         client_ip = request.client.host
         now = time.time()
         request_times = self.clients.get(client_ip, [])
-        # Убираем старые запросы
         request_times = [t for t in request_times if now - t < self.period]
         if len(request_times) >= self.max_requests:
             logger.warning(f"IP {client_ip} превысил лимит запросов")
@@ -27,8 +26,7 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         response = await call_next(request)
         return response
 
-def setup_middlewares(app):
-    # CORS
+def setup(app: FastAPI):
     app.add_middleware(
         CORSMiddleware,
         allow_origins=["*"],
@@ -36,11 +34,8 @@ def setup_middlewares(app):
         allow_methods=["*"],
         allow_headers=["*"],
     )
+    app.add_middleware(RateLimitMiddleware, max_requests=20, period=1)
 
-    # Rate limiting (DDoS protection)
-    app.add_middleware(RateLimitMiddleware, max_requests=20, period=1)  # пример: 20 запросов в 1 секунду
-
-    # Logging middleware
     @app.middleware("http")
     async def log_requests(request: Request, call_next):
         logger.info(f"Request: {request.method} {request.url}")

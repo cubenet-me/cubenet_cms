@@ -1,8 +1,9 @@
+# engine/core/events/events.py
 from fastapi import FastAPI
-from engine.core.logger import logger
-from engine.core.security import ENABLE_SWAGGER, ENABLE_REDOC, ENABLE_OPENAPI
+from engine.core.logger.logger import logger
+from engine.core.security.security import ENABLE_SWAGGER, ENABLE_REDOC, ENABLE_OPENAPI
 
-def setup_events(app: FastAPI):
+def setup(app: FastAPI):
     @app.on_event("startup")
     async def on_startup():
         logger.info("CubeNet CMS is starting...")

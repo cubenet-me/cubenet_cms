@@ -1,9 +1,8 @@
-# engine/core/roles.py
+# engine/core/security/role/roles.py
 import json
 from pathlib import Path
 from fastapi import Depends, HTTPException
 
-# Новый путь к roles.json
 ROLE_FILE = Path(__file__).parent / "roles.json"
 
 class RoleManager:
@@ -18,22 +17,15 @@ class RoleManager:
             return json.load(f).get("roles", {})
 
     def get_permission_value(self, role_name: str) -> int:
-        """
-        Получение числового уровня прав роли
-        """
         role = self.roles.get(role_name)
         if not role:
             return 0
         return role.get("permissions", 0)
 
-# Глобальный менеджер ролей
 role_manager = RoleManager()
 
 def permission_required(level: int):
-    """
-    Dependency для FastAPI эндпоинта, проверяет уровень прав роли
-    """
-    def dependency(role: str = "user"):  # здесь роль берём из токена unpublic
+    def dependency(role: str = "user"):
         role_perms = role_manager.get_permission_value(role)
         if role_perms < level:
             raise HTTPException(status_code=403, detail="Permission denied")

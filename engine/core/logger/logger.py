@@ -1,9 +1,9 @@
+# engine/core/logger/logger.py
 import logging
 
 logger = logging.getLogger("cubenet_cms")
-logger.setLevel(logging.INFO)  # уровень логирования
+logger.setLevel(logging.INFO)
 
-# Добавляем обработчик только если его ещё нет
 if not logger.handlers:
     formatter = logging.Formatter("%(asctime)s | %(levelname)s | %(message)s")
     ch = logging.StreamHandler()

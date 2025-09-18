@@ -1,4 +1,4 @@
-# engine/core/exceptions.py
+# engine/core/logger/exceptions.py
 from fastapi import HTTPException
 
 class NotFoundException(HTTPException):
