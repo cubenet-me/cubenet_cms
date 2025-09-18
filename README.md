@@ -132,7 +132,7 @@ cubenet_cms/
 │   ├── vite.config.js      # Конфигурация Vite
 │   └── package.json        # Зависимости фронтенда
 ├── requirements.txt         # Зависимости бэкенда
-├── README.markdown          # Документация
+├── README.md          # Документация
 └── upload.sh               # Скрипт для деплоя
 ```
 
