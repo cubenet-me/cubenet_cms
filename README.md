@@ -28,13 +28,6 @@ cms с бэкендом на FastAPI и фронтендом на Vite/React.
    pip install -r requirements.txt
    ```
 
-4. **измените файл `.env`**:
-   В корне проекта измените файл `.env`:
-   ```
-   PRIVATE_API_TOKEN=your_api_token
-   SECRET_JWT_KEY=supersecret
-   ```
-
 5. **Проверьте `roles.json`**:
    Убедитесь, что файл `engine/core/security/role/roles.json` существует:
    ```json

@@ -1,7 +1,14 @@
 # engine/core/events/events.py
 from fastapi import FastAPI
 from engine.core.logger.logger import logger
-from engine.core.security.security import ENABLE_SWAGGER, ENABLE_REDOC, ENABLE_OPENAPI
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+ENABLE_SWAGGER = os.getenv("ENABLE_SWAGGER", "1") == "1"
+ENABLE_REDOC = os.getenv("ENABLE_REDOC", "1") == "1"
+ENABLE_OPENAPI = os.getenv("ENABLE_OPENAPI", "1") == "1"
 
 def setup(app: FastAPI):
     @app.on_event("startup")
