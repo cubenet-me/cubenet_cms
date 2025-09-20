@@ -1,9 +1,7 @@
-from fastapi import APIRouter, FastAPI
+from fastapi import APIRouter
 
-app = FastAPI()
-router = APIRouter(prefix="/launcher", tags=["launcher"])  # Категория example
+router = APIRouter(prefix="/launcher", tags=["launcher"])  # Категория launcher
 
-# Пустой эндпоинт в категории example
 @router.get("/")
 def example_endpoint():
     """
@@ -11,5 +9,7 @@ def example_endpoint():
     """
     return {"message": "Этот эндпоинт пока пустой"}
 
-# Подключаем роутер к приложению
-app.include_router(router)
+# Ни в коем случае не создаём здесь FastAPI()
+# Подключение делаем через loader:
+# from engine.main import app
+# app.include_router(router)

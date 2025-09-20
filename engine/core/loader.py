@@ -3,6 +3,10 @@ import importlib.util
 from pathlib import Path
 from fastapi import FastAPI
 from engine.core.logger.logger import logger
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 CORE_MODULES_PATH = Path(__file__).parent
 core_modules = {}  # Словарь для хранения функций всех модулей core
@@ -11,6 +15,12 @@ def load_core_modules(app: FastAPI):
     global core_modules
     for module_dir in CORE_MODULES_PATH.iterdir():
         if not module_dir.is_dir() or module_dir.name in ["__pycache__", "role"]:
+            continue
+
+        # Проверка .env: CORE_<module_name_upper>=1
+        env_var = f"CORE_{module_dir.name.upper()}"
+        if os.getenv(env_var, "1") != "1":
+            logger.info(f"Модуль core {module_dir.name} отключен в .env ({env_var}=0)")
             continue
 
         init_file = module_dir / "__init__.py"
