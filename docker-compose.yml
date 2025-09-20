@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - cubenet_net
+
+  api:
+    build: .
+    container_name: cubenet_api
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydb
+    ports:
+      - "8585:8585"
+    depends_on:
+      - db
+    networks:
+      - cubenet_net
+
+volumes:
+  pgdata:
+
+networks:
+  cubenet_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.25.0.0/16
