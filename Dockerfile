@@ -4,6 +4,9 @@ FROM python:3.12-slim
 # Устанавливаем рабочую директорию
 WORKDIR /app
 
+# Добавляем /app в PYTHONPATH, чтобы импорты работали
+ENV PYTHONPATH=/app
+
 # Копируем проект в контейнер
 COPY . .
 
@@ -11,7 +14,7 @@ COPY . .
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# Экспортируем порт, на котором будет работать приложение
+# Экспортируем порт
 EXPOSE 8585
 
 # Запуск приложения через Uvicorn

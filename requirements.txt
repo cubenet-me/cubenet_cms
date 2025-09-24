@@ -5,3 +5,6 @@ pydantic-settings
 pyjwt
 bcrypt
 python-dotenv
+watchfiles
+sqlalchemy>=2.0
+asyncpg
