@@ -8,3 +8,4 @@ python-dotenv
 watchfiles
 sqlalchemy>=2.0
 asyncpg
+slowapi

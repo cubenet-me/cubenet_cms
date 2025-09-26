@@ -1,4 +1,3 @@
-# engine/core/config/config.py
 from pydantic_settings import BaseSettings
 from dotenv import load_dotenv
 import os
@@ -7,10 +6,6 @@ import os
 load_dotenv(override=True)
 
 class Settings(BaseSettings):
-    # JWT
-    jwt_algorithm: str = "HS256"
-    jwt_expiration_minutes: int = 60
-
     # Debug
     debug: bool = True
 
@@ -20,13 +15,15 @@ class Settings(BaseSettings):
     POSTGRES_DB: str = "cubenet"
     POSTGRES_HOST: str = "db"
 
+    # Новый параметр: включение корневого эндпоинта
+    root_endpoint: int = 1  # 1 = включен, 0 = выключен
+
     class Config:
         env_file = ".env"
         extra = "ignore"  # Игнорировать лишние переменные окружения
 
 # Функция для создания нового объекта Settings с актуальным .env
 def get_settings():
-    # Перезагружаем переменные окружения из .env
     load_dotenv(override=True)
     return Settings()
 
