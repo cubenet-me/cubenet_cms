@@ -9,3 +9,5 @@ watchfiles
 sqlalchemy>=2.0
 asyncpg
 slowapi
+python-jose[cryptography]
+python-multipart

@@ -1,3 +1,4 @@
+# engine/main.py
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from slowapi import Limiter
@@ -12,7 +13,7 @@ from pathlib import Path
 import asyncio
 
 # --- Настройки ---
-settings = get_settings()
+settings = get_settings()  # все берётся строго из .env
 
 # --- Глобальный лимитер ---
 limiter = Limiter(key_func=get_remote_address)
@@ -32,7 +33,14 @@ def init_app(app):
     async def rate_limit_handler(request: Request, exc: RateLimitExceeded):
         return JSONResponse(status_code=429, content={"detail": "Too Many Requests"})
 
-app = FastAPI(title="CubeNet CMS")
+# --- Создаём FastAPI с версией в Swagger ---
+app = FastAPI(
+    title=f"CubeNet CMS v{settings.CMS_VERSION}",
+    description=f"CubeNet CMS API (версия {settings.CMS_VERSION})"
+)
+
+# Логируем версию при старте
+logger.info(f"Запущена CubeNet CMS, версия: {settings.CMS_VERSION}")
 
 # Подключаем slowapi
 init_app(app)
@@ -75,12 +83,15 @@ async def watch_public_modules():
 # Запускаем watcher в фоне
 asyncio.create_task(watch_public_modules())
 
-# --- Корневой эндпоинт ---
+# --- Корневой эндпоинт с версией CMS ---
 if settings.root_endpoint:
     @app.get("/", include_in_schema=False)
     @slowapi("3/minute")
     async def root(request: Request):
-        return JSONResponse({"message": "CubeNet CMS API running. Static site served via Nginx."})
+        return JSONResponse({
+            "message": "CubeNet CMS API running. Static site served via Nginx.",
+            "version": settings.CMS_VERSION
+        })
 else:
     @app.get("/", include_in_schema=False)
     async def root_404(request: Request):

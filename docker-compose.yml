@@ -12,6 +12,12 @@ services:
       - pgdata:/var/lib/postgresql/data
     networks:
       - cubenet_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+      start_period: 10s
 
   api:
     build: .
@@ -25,7 +31,8 @@ services:
     ports:
       - "8585:8585"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - cubenet_net
 
@@ -38,4 +45,3 @@ networks:
     ipam:
       config:
         - subnet: 172.25.0.0/16
-  
